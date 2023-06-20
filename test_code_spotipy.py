@@ -30,13 +30,22 @@ artists = set()
 artist_ids = set()
 
 
-for track in tracks:
-    for artist in track['track']['artists']:
-        artist_name = artist['name']
-        artists.add(artist_name)
+# for track in tracks:
+#     for artist in track['track']['artists']:
+#         artist_name = artist['name']
+#         artists.add(artist_name)
+#
+#         artist_id = artist['id']
+#         artist_ids.add(artist_id)
 
-        artist_id = artist['id']
-        artist_ids.add(artist_id)
+# alternative with main artists only
+for track in tracks:
+    artist_name = track['track']['artists'][0]['name']  # Get the name of the first artist
+    artists.add(artist_name)
+
+    artist_id = track['track']['artists'][0]['id']
+    artist_ids.add(artist_id)
+
 
 # Now you have a set of unique artist names
 
@@ -56,8 +65,6 @@ for artist_id in tqdm(artist_ids, desc="Processing artists"):
         selected_new_songs.extend(random.sample(top_10_songs,2))
     else:
         selected_new_songs.extend(top_10_songs)
-
-print(selected_new_songs)
 
 
 # songs to add
